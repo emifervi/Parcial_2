@@ -30,12 +30,12 @@ app.get('/met', function(req, res) {
   request.get({url:metSearch, json:true}, (error, response, body) => {
     if(error) {
       const errorMsg = error.errno === 'ENOTFOUND' ? 'No hay internet' : 'Error desconocido';
-      res.send({
+      return res.send({
         'Error type': errorMsg
       });
     }
     if(body.total === 0) {
-      res.send({
+      return res.send({
         'Error type': 'No se encontraron objetos correspondientes a la busqueda'
       });
     }
