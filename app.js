@@ -8,7 +8,7 @@ const metObjects = `https://collectionapi.metmuseum.org/public/collection/v1/sea
 const metObject = `https://collectionapi.metmuseum.org/public/collection/v1/objects/`
 
 // id part
-app.get('/students:id', function(req, res) {
+app.get('/students/:id', function(req, res) {
     
   if(req.params.id === ':A00959385' || req.params.id === 'A00959385'){
       return res.status(200).json({
@@ -43,15 +43,17 @@ app.get('/met', function(req, res) {
     const artInfo = `${metObject}${artId}`
 
     request.get({url:artInfo, json:true}, (error, response, body) => {
+      
       if(error) {
         const errorMsg = error.errno === 'ENOTFOUND' ? 'No hay internet' : 'Error desconocido';
         res.send({
           'Error type': errorMsg
         });
       }
+
       return res.status(200).json({
         'searchTerm': req.query.search,
-        'artist': bodyu.constituents ? body.constituents[0].name : 'No author or Anonymous',
+        'artist': body.constituents ? body.constituents[0].name : 'No author or Anonymous',
         'title': body.title,
         'year': body.objectEndDate,
         'technique': body.medium,
