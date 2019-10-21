@@ -10,7 +10,7 @@ const metObject = `https://collectionapi.metmuseum.org/public/collection/v1/obje
 // id part
 app.get('/students:id', function(req, res) {
     
-  if(req.params.id === ':A00959385' || req.params.id === 'A00959385' || req.params.id === '/A00959385'){
+  if(req.params.id === ':A00959385' || req.params.id === 'A00959385'){
       return res.status(200).json({
         'id': 'A00959385',
         'fullname': 'Emilio Fernando Alonso Villa',
@@ -28,8 +28,6 @@ app.get('/students:id', function(req, res) {
 app.get('/met', function(req, res) {
   const metSearch = `${metObjects}?q=${req.query.search}`
   request.get({url:metSearch, json:true}, (error, response, body) => {
-    console.log(body);
-    console.log(response.statusCode);
     if(error) {
       const errorMsg = error.errno === 'ENOTFOUND' ? 'No hay internet' : 'Error desconocido';
       res.send({
