@@ -49,14 +49,25 @@ app.get('/met', function(req, res) {
           'Error type': errorMsg
         });
       }
-      return res.status(200).json({
-        'searchTerm': req.query.search,
-        'artist': body.constituents[0].name,
-        'title': body.title,
-        'year': body.objectEndDate,
-        'technique': body.medium,
-        'metUrl': body.objectURL
-      });
+      if(body.constituents[0] === null) {
+        return res.status(200).json({
+          'searchTerm': req.query.search,
+          'artist': 'no artist',
+          'title': body.title,
+          'year': body.objectEndDate,
+          'technique': body.medium,
+          'metUrl': body.objectURL
+        });
+      } else {
+        return res.status(200).json({
+          'searchTerm': req.query.search,
+          'artist': body.constituents[0].name,
+          'title': body.title,
+          'year': body.objectEndDate,
+          'technique': body.medium,
+          'metUrl': body.objectURL
+        });
+      }
     })
   });
 });
