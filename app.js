@@ -1,14 +1,14 @@
 const express = require('express');
 const request = require('request');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
 const app = express();
 const metObjects = `https://collectionapi.metmuseum.org/public/collection/v1/search`
 const metObject = `https://collectionapi.metmuseum.org/public/collection/v1/objects/`
 // id part
 app.get('/students:id', function(req, res) {
-    if(req.params.id === ':A00959385'){
+    if(req.params.id === ':A00959385' || req.params.id === 'A00959385'){
       return res.status(200).json({
         'id': 'A00959385',
         'fullname': 'Emilio Fernando Alonso Villa',
@@ -16,6 +16,7 @@ app.get('/students:id', function(req, res) {
         'age': '24'
       });
     } else {
+      console.log(req.params.id)
       throw new Error('id no válido');
     }
 });
